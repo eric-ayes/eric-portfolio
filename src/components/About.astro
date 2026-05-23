@@ -1,0 +1,170 @@
+---
+import { timeline } from '../data.js';
+---
+<section id="about">
+  <p class="label reveal" id="label-about">About</p>
+
+  <div class="about-wrap reveal">
+    <div class="about-left">
+      <h2 class="display about-title" id="about-title">Engineer first.<br>Theory-backed.</h2>
+      <p class="about-p" id="about-p1">
+        BSc in AI from EHU, MSc in Deep Learning (audio, video &amp; image) at UAM.
+        I understand models inside out and make them work in practice.
+      </p>
+      <p class="about-p" id="about-p2">
+        I've worked with real data in applied research (CIC biomaGUNE),
+        industry internships (Zitu Informatika), and standard benchmarks.
+        I also design AI agent systems and process automation pipelines.
+      </p>
+
+      <div class="skills-section">
+        <div class="skill-group">
+          <p class="mono skill-group-label">Deep Learning &amp; ML</p>
+          <div class="skill-tags">
+            {['PyTorch','Computer Vision','Video Understanding','Signal Processing','Self-supervised','Transformers','Biometrics'].map(s => (
+              <span class="skill-tag mono">{s}</span>
+            ))}
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="mono skill-group-label" id="sg-label-agents">LLMs &amp; Agents</p>
+          <div class="skill-tags">
+            {['LLM Fine-tuning','AI Agents','RAG','Process Automation','MLOps'].map(s => (
+              <span class="skill-tag mono hot">{s}</span>
+            ))}
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="mono skill-group-label">Tools &amp; Stack</p>
+          <div class="skill-tags">
+            {['Python','sklearn','NumPy','Git','Docker','Linux','Jupyter'].map(s => (
+              <span class="skill-tag mono">{s}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-right">
+      <p class="mono skill-group-label" id="label-edu">Education</p>
+      <div class="timeline">
+        {timeline.education.map(item => (
+          <div class="tl-item">
+            <span class="mono tl-year">{item.year}</span>
+            <div>
+              <p class="tl-title" data-es={item.titleEs} data-en={item.titleEn}>{item.titleEn}</p>
+              <p class="tl-sub">{item.sub}</p>
+              <span class={`mono tl-badge badge-${item.badge}`}
+                data-es-current="En curso" data-en-current="In progress"
+                data-es-research="Investigación" data-en-research="Research"
+                data-badge={item.badge}>
+                {item.badge === 'current' ? 'In progress' : 'Research'}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="mono skill-group-label tl-section" id="label-exp">Experience</p>
+      <div class="timeline">
+        {timeline.experience.map(item => (
+          <div class="tl-item">
+            <span class="mono tl-year">{item.year}</span>
+            <div>
+              <p class="tl-title" data-es={item.titleEs} data-en={item.titleEn}>{item.titleEn}</p>
+              <p class="tl-sub">{item.sub}</p>
+              <span class={`mono tl-badge badge-${item.badge}`}
+                data-badge={item.badge}>
+                {item.badge === 'industry' ? 'Industry' : 'Research'}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.about-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  padding: 2rem;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 5rem;
+}
+.about-wrap:hover {
+  border-color: var(--border-2);
+  background: var(--bg-2);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.about-title {
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.25rem;
+  white-space: pre-line;
+}
+.about-p {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  margin-bottom: 0.9rem;
+}
+
+.skills-section { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
+.skill-group {}
+.skill-group-label {
+  font-size: 10px;
+  color: var(--ink-3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-tag {
+  font-size: 10.5px;
+  padding: 4px 9px;
+  border: 0.5px solid var(--border);
+  border-radius: 3px;
+  color: var(--ink-2);
+}
+.skill-tag.hot {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Timeline */
+.timeline { display: flex; flex-direction: column; margin-bottom: 0.5rem; }
+.tl-section { margin-top: 1.75rem; }
+.tl-item {
+  padding: 0.9rem 0;
+  border-bottom: 0.5px solid var(--border);
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+.tl-item:last-child { border-bottom: none; padding-bottom: 0; }
+.tl-year { font-size: 11px; color: var(--ink-3); padding-top: 2px; }
+.tl-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.tl-sub { font-size: 12px; color: var(--ink-2); margin-bottom: 4px; }
+.tl-badge {
+  display: inline-block;
+  font-size: 9.5px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+}
+.badge-current  { background: var(--accent-bg); color: var(--accent); }
+.badge-research { background: var(--blue-bg);   color: var(--blue); }
+.badge-industry { background: #FAEEDA; color: #854F0B; }
+
+@media (max-width: 700px) {
+  .about-wrap { grid-template-columns: 1fr; }
+}
+</style>

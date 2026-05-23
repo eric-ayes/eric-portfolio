@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+const { title = 'Eric Ayestaran — AI Engineer' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Eric Ayestaran Guillorme — AI Engineer. Deep learning, computer vision, video, LLMs and AI agents. Based in Madrid." />
+  <meta property="og:title" content="Eric Ayestaran — AI Engineer" />
+  <meta property="og:description" content="Deep learning engineer with solid theoretical foundations. EHU · UAM · CIC biomaGUNE." />
+  <meta property="og:type" content="website" />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body>
+  <div id="cursor"><div id="cursor-dot"></div><div id="cursor-ring"></div></div>
+  <slot />
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    const hoverTargets = 'a, button, .proj-card, .hoverable';
+    document.querySelectorAll(hoverTargets).forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

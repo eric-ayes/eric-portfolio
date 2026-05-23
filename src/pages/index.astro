@@ -1,0 +1,127 @@
+---
+import Base     from '../layouts/Base.astro';
+import Nav      from '../components/Nav.astro';
+import Hero     from '../components/Hero.astro';
+import Projects from '../components/Projects.astro';
+import About    from '../components/About.astro';
+import Contact  from '../components/Contact.astro';
+import Footer   from '../components/Footer.astro';
+import { i18n } from '../data.js';
+---
+<Base>
+  <div class="container">
+    <Nav />
+    <main>
+      <Hero />
+      <Projects />
+      <About />
+      <Contact />
+    </main>
+    <Footer />
+  </div>
+</Base>
+
+<script>
+// ── i18n ────────────────────────────────────────────────────
+const translations = {
+  es: {
+    'hero-tag':      'AI Engineer · Madrid',
+    'hero-h1':       'I build things',
+    'hero-h2':       'que funcionan.',
+    'hero-sub':      'Ingeniero de Deep Learning con bases teóricas sólidas. Visión por computador, vídeo, señal, LLMs y agentes de IA. EHU · UAM · CIC biomaGUNE.',
+    'hero-cta':      'Ver proyectos',
+    'label-projects':'Proyectos',
+    'label-about':   'Sobre mí',
+    'label-contact': 'Contacto',
+    'about-title':   'Engineer first.\nTheory-backed.',
+    'about-p1':      'Graduado en IA por la EHU, máster en Deep Learning (audio, vídeo e imagen) en la UAM. Entiendo los modelos por dentro y los hago funcionar en la práctica.',
+    'about-p2':      'He trabajado con datos reales en investigación aplicada (CIC biomaGUNE), en entornos empresariales (Zitu Informatika) y con benchmarks estándar del campo. También diseño sistemas con agentes de IA y automatización de procesos.',
+    'sg-label-agents':'LLMs y Agentes',
+    'label-edu':     'Educación',
+    'label-exp':     'Experiencia',
+    'contact-pre':   'Open to work · Colaboraciones · Research',
+  },
+  en: {
+    'hero-tag':      'AI Engineer · Madrid',
+    'hero-h1':       'I build things',
+    'hero-h2':       'that work.',
+    'hero-sub':      'Deep learning engineer with solid theoretical foundations. Computer vision, video, signal processing, LLMs and AI agents. EHU · UAM · CIC biomaGUNE.',
+    'hero-cta':      'View projects',
+    'label-projects':'Projects',
+    'label-about':   'About',
+    'label-contact': 'Contact',
+    'about-title':   'Engineer first.\nTheory-backed.',
+    'about-p1':      'BSc in AI from EHU, MSc in Deep Learning (audio, video & image) at UAM. I understand models inside out and make them work in practice.',
+    'about-p2':      "I've worked with real data in applied research (CIC biomaGUNE), industry internships (Zitu Informatika), and standard benchmarks. I also design AI agent systems and process automation pipelines.",
+    'sg-label-agents':'LLMs & Agents',
+    'label-edu':     'Education',
+    'label-exp':     'Experience',
+    'contact-pre':   'Open to work · Collaborations · Research',
+  }
+};
+
+const projectBadges = { es: 'TFM en curso', en: 'Finishing TFM' };
+const collabLabels  = { es: 'colaboración', en: 'collab' };
+const badgeMap = {
+  current:  { es: 'En curso',       en: 'In progress' },
+  research: { es: 'Investigación',  en: 'Research'    },
+  industry: { es: 'Empresa',        en: 'Industry'    },
+};
+
+let lang = 'en';
+
+function setLang(l) {
+  lang = l;
+  const t = translations[l];
+
+  // Simple text nodes
+  for (const [id, val] of Object.entries(t)) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    if (id === 'about-title') {
+      el.innerHTML = val.replace('\n', '<br>');
+    } else {
+      el.textContent = val;
+    }
+  }
+
+  // Nav links
+  document.querySelectorAll('.nav-link[data-es]').forEach(el => {
+    el.textContent = el.dataset[l] || el.textContent;
+  });
+
+  // Project cards
+  document.querySelectorAll('.proj-card').forEach(card => {
+    const domainEl = card.querySelector('.proj-domain-text');
+    const titleEl  = card.querySelector('.proj-title-text');
+    const descEl   = card.querySelector('.proj-desc-text');
+    if (domainEl) domainEl.textContent = card.dataset[`domain${l.charAt(0).toUpperCase()+l.slice(1)}`];
+    if (titleEl)  titleEl.textContent  = card.dataset[`title${l.charAt(0).toUpperCase()+l.slice(1)}`];
+    if (descEl)   descEl.textContent   = card.dataset[`desc${l.charAt(0).toUpperCase()+l.slice(1)}`];
+  });
+
+  // TFM badge
+  document.querySelectorAll('[id^="badge-"]').forEach(el => {
+    el.textContent = projectBadges[l];
+  });
+  document.querySelectorAll('[id^="collab-"]').forEach(el => {
+    el.textContent = collabLabels[l];
+  });
+
+  // Timeline titles & badges
+  document.querySelectorAll('.tl-title[data-es]').forEach(el => {
+    el.textContent = el.dataset[l];
+  });
+  document.querySelectorAll('.tl-badge[data-badge]').forEach(el => {
+    const key = el.dataset.badge;
+    if (badgeMap[key]) el.textContent = badgeMap[key][l];
+  });
+
+  // Toggle active button
+  document.getElementById('btn-es').classList.toggle('active', l === 'es');
+  document.getElementById('btn-en').classList.toggle('active', l === 'en');
+}
+
+document.getElementById('btn-es').addEventListener('click', () => setLang('es'));
+document.getElementById('btn-en').addEventListener('click', () => setLang('en'));
+</script>

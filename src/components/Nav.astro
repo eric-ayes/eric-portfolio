@@ -1,0 +1,77 @@
+---
+---
+<nav class="nav">
+  <a href="#" class="nav-logo mono">eric.ayestaran</a>
+  <div class="nav-links" id="nav-links">
+    <a href="#projects" class="nav-link mono" data-es="proyectos" data-en="projects">projects</a>
+    <a href="#about"    class="nav-link mono" data-es="sobre mí"  data-en="about">about</a>
+    <a href="#contact"  class="nav-link mono" data-es="contacto"  data-en="contact">contact</a>
+    <a href="https://github.com/eric-ayes" target="_blank" rel="noopener" class="nav-link mono">github ↗</a>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn mono" id="btn-es">ES</button>
+    <button class="lang-btn mono active" id="btn-en">EN</button>
+  </div>
+</nav>
+
+<style>
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 0.5px solid var(--border);
+  margin-bottom: 4.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(247,246,242,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  width: calc(100% + 3rem);
+}
+@media (prefers-color-scheme: dark) {
+  .nav {
+    background: rgba(17,17,16,0.85);
+  }
+}
+.nav-logo {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+.nav-link {
+  font-size: 13px;
+  color: var(--ink-2);
+  transition: color 0.15s;
+}
+.nav-link:hover { color: var(--ink); }
+
+.lang-toggle {
+  display: flex;
+  border: 0.5px solid var(--border-2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.lang-btn {
+  font-size: 11px;
+  padding: 5px 12px;
+  background: transparent;
+  color: var(--ink-2);
+  border: none;
+  cursor: none;
+  letter-spacing: 0.06em;
+  transition: background 0.15s, color 0.15s;
+}
+.lang-btn.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+</style>

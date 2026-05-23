@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@700;800&family=Inter:ital,wght@0,400;0,500;1,400&display=swap');
+
+/* ── Design tokens ── */
+:root {
+  --bg:          #F7F6F2;
+  --bg-2:        #EFEDE8;
+  --ink:         #111110;
+  --ink-2:       #555450;
+  --ink-3:       #999793;
+  --border:      #DDDBD5;
+  --border-2:    #C8C5BE;
+  --accent:      #1D9E75;
+  --accent-bg:   #E1F5EE;
+  --blue:        #185FA5;
+  --blue-bg:     #E6F1FB;
+  --radius:      10px;
+  --font-mono:   'IBM Plex Mono', monospace;
+  --font-display:'Syne', sans-serif;
+  --font-body:   'Inter', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:       #111110;
+    --bg-2:     #1A1A18;
+    --ink:      #F0EEE9;
+    --ink-2:    #A09D97;
+    --ink-3:    #66635D;
+    --border:   #2A2A27;
+    --border-2: #3A3A36;
+    --accent:   #25C48F;
+    --accent-bg:#0D2B21;
+    --blue:     #4A9FE0;
+    --blue-bg:  #0D1E30;
+  }
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+}
+
+body { min-height: 100vh; }
+
+a { color: inherit; text-decoration: none; }
+
+img { display: block; max-width: 100%; }
+
+/* ── Custom cursor ── */
+#cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  top: -100px;
+  left: -100px;
+}
+#cursor-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--ink);
+  border-radius: 50%;
+  position: absolute;
+  top: -3.5px;
+  left: -3.5px;
+  transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease;
+}
+#cursor-ring {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  background: transparent;
+  position: absolute;
+  top: -3.5px;
+  left: -3.5px;
+  transition: width 0.3s ease, height 0.3s ease, top 0.3s ease,
+              left 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+.cursor-hover #cursor-dot  { opacity: 0; }
+.cursor-hover #cursor-ring {
+  width: 48px; height: 48px;
+  top: -24px;  left: -24px;
+  border-color: rgba(17,17,16,0.18);
+  background:   rgba(17,17,16,0.05);
+}
+@media (prefers-color-scheme: dark) {
+  .cursor-hover #cursor-ring {
+    border-color: rgba(240,238,233,0.2);
+    background:   rgba(240,238,233,0.06);
+  }
+}
+
+/* ── Layout ── */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ── Typography helpers ── */
+.mono   { font-family: var(--font-mono); }
+.display{ font-family: var(--font-display); }
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.label::after {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: var(--border);
+}
+
+/* ── Buttons ── */
+.btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  cursor: default;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  border: 0.5px solid transparent;
+  display: inline-block;
+}
+.btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.btn-primary:hover { opacity: 0.85; }
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-2);
+  border-color: var(--border-2);
+}
+.btn-ghost:hover { border-color: var(--ink-2); color: var(--ink); }
+
+/* ── Section spacing ── */
+section { margin-bottom: 5rem; }
+
+/* ── Fade-in on scroll ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
