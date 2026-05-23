@@ -8,9 +8,12 @@
     <a href="#contact"  class="nav-link mono" data-es="contacto"  data-en="contact">contact</a>
     <a href="https://github.com/eric-ayes" target="_blank" rel="noopener" class="nav-link mono">github ↗</a>
   </div>
-  <div class="lang-toggle">
-    <button class="lang-btn mono" id="btn-es">ES</button>
-    <button class="lang-btn mono active" id="btn-en">EN</button>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn mono" id="btn-es">ES</button>
+      <button class="lang-btn mono active" id="btn-en">EN</button>
+    </div>
+    <button class="hamburger mono" id="hamburger" aria-label="Menu">☰</button>
   </div>
 </nav>
 
@@ -33,9 +36,7 @@
   width: calc(100% + 3rem);
 }
 @media (prefers-color-scheme: dark) {
-  .nav {
-    background: rgba(17,17,16,0.85);
-  }
+  .nav { background: rgba(17,17,16,0.85); }
 }
 .nav-logo {
   font-size: 13px;
@@ -54,6 +55,11 @@
 }
 .nav-link:hover { color: var(--ink); }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 .lang-toggle {
   display: flex;
   border: 0.5px solid var(--border-2);
@@ -66,7 +72,7 @@
   background: transparent;
   color: var(--ink-2);
   border: none;
-  cursor: none;
+  cursor: pointer;
   letter-spacing: 0.06em;
   transition: background 0.15s, color 0.15s;
 }
@@ -74,4 +80,49 @@
   background: var(--ink);
   color: var(--bg);
 }
+.hamburger {
+  display: none;
+  font-size: 18px;
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--bg);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0.5rem 1.5rem;
+  }
+  .nav-links.open { display: flex; }
+  .nav-link {
+    padding: 0.75rem 0;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 14px;
+  }
+  .nav-link:last-child { border-bottom: none; }
+  .hamburger { display: block; }
+}
 </style>
+
+<script>
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('nav-links').classList.toggle('open');
+});
+// Close menu when a link is clicked
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('nav-links').classList.remove('open');
+  });
+});
+</script>
