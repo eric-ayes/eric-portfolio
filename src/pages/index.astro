@@ -26,7 +26,7 @@ import { i18n } from '../data.js';
 const translations = {
   es: {
     'hero-tag':      'AI Engineer · Madrid',
-    'hero-h1':       'I build things',
+    'hero-h1':       'Construyo cosas',
     'hero-h2':       'que funcionan.',
     'hero-sub':      'Ingeniero de Deep Learning con bases teóricas sólidas. Visión por computador, vídeo, señal, LLMs y agentes de IA. EHU · UAM · CIC biomaGUNE.',
     'hero-cta':      'Ver proyectos',
@@ -91,8 +91,7 @@ function setLang(l) {
   });
 
   // Project cards
-  document.querySelectorAll('.proj-card').forEach(card => {
-    const domainEl = card.querySelector('.proj-domain-text');
+document.querySelectorAll('.proj-card, .feat-card').forEach(card => {    const domainEl = card.querySelector('.proj-domain-text');
     const titleEl  = card.querySelector('.proj-title-text');
     const descEl   = card.querySelector('.proj-desc-text');
     if (domainEl) domainEl.textContent = card.dataset[`domain${l.charAt(0).toUpperCase()+l.slice(1)}`];
