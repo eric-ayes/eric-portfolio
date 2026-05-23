@@ -22,13 +22,13 @@ import { i18n } from '../data.js';
 </Base>
 
 <script>
-// ── i18n ────────────────────────────────────────────────────
 const translations = {
   es: {
     'hero-tag':      'AI Engineer · Madrid',
     'hero-h1':       'Construyo cosas',
     'hero-h2':       'que funcionan.',
-    'hero-sub':      'Ingeniero de Deep Learning con bases teóricas sólidas. Visión por computador, vídeo, señal, LLMs y agentes de IA. EHU · UAM · CIC biomaGUNE.',
+    'hero-sub':      'Ingeniero de Deep Learning con bases teóricas sólidas. Visión por computador, vídeo, señal, LLMs y agentes de IA.',
+    'hero-inst':     'EHU · UAM · CIC biomaGUNE · Zitu Informatika.',
     'hero-cta':      'Ver proyectos',
     'label-projects':'Proyectos',
     'label-about':   'Sobre mí',
@@ -45,7 +45,8 @@ const translations = {
     'hero-tag':      'AI Engineer · Madrid',
     'hero-h1':       'I build things',
     'hero-h2':       'that work.',
-    'hero-sub':      'Deep learning engineer with solid theoretical foundations. Computer vision, video, signal processing, LLMs and AI agents. EHU · UAM · CIC biomaGUNE.',
+    'hero-sub':      'Deep learning engineer with solid theoretical foundations. Computer vision, video, signal processing, LLMs and AI agents.',
+    'hero-inst':     'EHU · UAM · CIC biomaGUNE · Zitu Informatika.',
     'hero-cta':      'View projects',
     'label-projects':'Projects',
     'label-about':   'About',
@@ -63,9 +64,9 @@ const translations = {
 const projectBadges = { es: 'TFM en curso', en: 'Finishing TFM' };
 const collabLabels  = { es: 'colaboración', en: 'collab' };
 const badgeMap = {
-  current:  { es: 'En curso',       en: 'In progress' },
-  research: { es: 'Investigación',  en: 'Research'    },
-  industry: { es: 'Empresa',        en: 'Industry'    },
+  current:  { es: 'En curso',      en: 'In progress' },
+  research: { es: 'Investigación', en: 'Research'    },
+  industry: { es: 'Empresa',       en: 'Industry'    },
 };
 
 let lang = 'en';
@@ -74,7 +75,6 @@ function setLang(l) {
   lang = l;
   const t = translations[l];
 
-  // Simple text nodes
   for (const [id, val] of Object.entries(t)) {
     const el = document.getElementById(id);
     if (!el) continue;
@@ -85,13 +85,12 @@ function setLang(l) {
     }
   }
 
-  // Nav links
   document.querySelectorAll('.nav-link[data-es]').forEach(el => {
     el.textContent = el.dataset[l] || el.textContent;
   });
 
-  // Project cards
-document.querySelectorAll('.proj-card, .feat-card').forEach(card => {    const domainEl = card.querySelector('.proj-domain-text');
+  document.querySelectorAll('.proj-card, .feat-card').forEach(card => {
+    const domainEl = card.querySelector('.proj-domain-text');
     const titleEl  = card.querySelector('.proj-title-text');
     const descEl   = card.querySelector('.proj-desc-text');
     if (domainEl) domainEl.textContent = card.dataset[`domain${l.charAt(0).toUpperCase()+l.slice(1)}`];
@@ -99,7 +98,6 @@ document.querySelectorAll('.proj-card, .feat-card').forEach(card => {    const d
     if (descEl)   descEl.textContent   = card.dataset[`desc${l.charAt(0).toUpperCase()+l.slice(1)}`];
   });
 
-  // TFM badge
   document.querySelectorAll('[id^="badge-"]').forEach(el => {
     el.textContent = projectBadges[l];
   });
@@ -107,7 +105,6 @@ document.querySelectorAll('.proj-card, .feat-card').forEach(card => {    const d
     el.textContent = collabLabels[l];
   });
 
-  // Timeline titles & badges
   document.querySelectorAll('.tl-title[data-es]').forEach(el => {
     el.textContent = el.dataset[l];
   });
@@ -116,7 +113,6 @@ document.querySelectorAll('.proj-card, .feat-card').forEach(card => {    const d
     if (badgeMap[key]) el.textContent = badgeMap[key][l];
   });
 
-  // Toggle active button
   document.getElementById('btn-es').classList.toggle('active', l === 'es');
   document.getElementById('btn-en').classList.toggle('active', l === 'en');
 }
